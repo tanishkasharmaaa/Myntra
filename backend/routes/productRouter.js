@@ -220,7 +220,7 @@ ProductRouter.get('/kid',async(req,res)=>{
 //------------------GET ALL PRODUCTS-------------------
 
 ProductRouter.get('/all_Product', async (req, res) => {
-  let { q, name, category, brand, limit = 20, page = 1 } = req.query;
+  let { q, name, category,ForCategory,price, brand, limit = 20, page = 1 } = req.query;
 
   try {
     // Convert limit and page to integers for pagination
@@ -232,7 +232,19 @@ ProductRouter.get('/all_Product', async (req, res) => {
 
     // Apply dynamic search for 'q' across the 'name' field
     if (q) {
-      filter.name = new RegExp(q, 'i'); // Case-insensitive partial match for 'name'
+   
+     filter.$or=[
+{name:new RegExp(q,'i')},
+{category:new RegExp(q,'i')},
+{ForCategory:new RegExp(q,'i')},
+{brand:new RegExp(q,'i')},
+
+
+     ]
+     const parsedNumber = parseFloat(q);
+     if (!isNaN(parsedNumber)) {
+       filter.$or.push({ price: parsedNumber });  // Exact match for numeric 'price'
+     }
     } else {
       // Apply specific filters if individual parameters are provided
       if (name) {
