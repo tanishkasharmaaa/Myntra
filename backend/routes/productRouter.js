@@ -219,7 +219,7 @@ ProductRouter.get('/all_Product', async (req, res) => {
      if (!isNaN(parsedNumber)) {
        filter.$or.push({ price: parsedNumber });  // Exact match for numeric 'price'
      }
-    } else {
+    } 
       // Apply specific filters if individual parameters are provided
       if (name) {
         filter.name = new RegExp(name, 'i'); // Case-insensitive partial match for 'name'
@@ -235,7 +235,7 @@ ProductRouter.get('/all_Product', async (req, res) => {
       }
       if(color){
         filter.color=color
-      }
+      
     }
 
     // Fetch products from all collections with filters and pagination
