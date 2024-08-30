@@ -211,7 +211,7 @@ ProductRouter.get('/all_Product', async (req, res) => {
 {category:new RegExp(q,'i')},
 {forCategory:new RegExp(q,'i')},
 {brand:new RegExp(q,'i')},
-{color:new RegExp(q,'i')}
+
 
 
      ]
