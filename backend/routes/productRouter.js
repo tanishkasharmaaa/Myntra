@@ -193,7 +193,7 @@ ProductRouter.get('/kid',async(req,res)=>{
 //------------------GET ALL PRODUCTS-------------------
 
 ProductRouter.get('/all_Product', async (req, res) => {
-  let { q, name, category, forCategory, price, color, brand, limit = 20, page = 1 } = req.query;
+  let { id,q, name, category, forCategory, price, color, brand, limit = 20, page = 1 } = req.query;
 
   try {
     // Convert limit and page to integers for pagination
@@ -225,6 +225,7 @@ ProductRouter.get('/all_Product', async (req, res) => {
     if (forCategory) filter.forCategory = forCategory;
     if (brand) filter.brand = brand;
     if (color) filter.color = color;
+    if(id)filter._id=id
 
     // Fetch all products matching the filter from each collection
     let men = await MenProductsModel.find(filter);
