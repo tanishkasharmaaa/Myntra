@@ -233,6 +233,9 @@ ProductRouter.get('/all_Product', async (req, res) => {
       if (brand) {
         filter.brand = brand;
       }
+      if(color){
+        filter.color=color
+      }
     }
 
     // Fetch products from all collections with filters and pagination
