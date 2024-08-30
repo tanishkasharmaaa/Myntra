@@ -251,7 +251,7 @@ ProductRouter.get('/all_Product', async (req, res) => {
       products: allProducts,
       totalProducts: allProducts.length,
       currentPage: page,
-      totalPages: (allProducts.length / limit),
+      totalPages:Math.floor (allProducts.length / limit),
     });
 
   } catch (error) {
