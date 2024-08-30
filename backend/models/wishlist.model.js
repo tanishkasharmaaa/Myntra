@@ -9,7 +9,7 @@ size:{type:[String]},
 arrayOfAllImages:{type:[String]},
 color:{type:String},
 discount:{type:String},
-userID:{type:mongoose.Schema.Types.ObjectId,ref:"user",require:true}
+userID:{type:mongoose.Schema.Types.ObjectId,ref:"user",required:true}
 },{
     versionKey:false
 })

@@ -102,80 +102,53 @@ await kid.save()
 ///---------------------CART-------------------------
 
 ProductRouter.post('/wishlist/:id', authMiddleware, async (req, res) => {
-  let token=req.headers.authorization.split(" ")[1];
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "Authorization token required" });
+  }
+
   let userId;
-  jwt.verify(token,process.env.JWT_SECRET_KEY,function(err,decode){
-if(err){
-  res.status(400).json({err})
-}
-if(decode){
-  userId=decode.userID
-}
-  })
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    userId = decoded.userID;
+  } catch (err) {
+    return res.status(400).json({ message: "Invalid token", error: err });
+  }
+
   try {
     // Find the product in the different collections
-    let men = await MenProductsModel.findOne({ _id: req.params.id });
-    let women = await WomenProductsModel.findOne({ _id: req.params.id });
-    let kid = await KidProductsModel.findOne({ _id: req.params.id });
-
-    let productToAdd;
-
-    // Check each collection and assign product details
-    if (men) {
-    
-      productToAdd = {
-        name: men.name,
-        category: men.category,
-        price: men.price,
-        brand: men.brand,
-        size: men.size,
-        images: men.arrayOfAllImages, // Assuming this field exists in WishlistProductsModel
-        color: men.color,
-        discount: men.discount,
-        userID:userId
-      };
-    } else if (women) {
-      console.log(women.name);
-      productToAdd = {
-        name: women.name,
-        category: women.category,
-        price: women.price,
-        brand: women.brand,
-        size: women.size,
-        images: women.arrayOfAllImages,
-        color: women.color,
-        discount: women.discount,
-        userID:userId
-      };
-    } else if (kid) {
-    
-      productToAdd = {
-        name: kid.name,
-        category: kid.category,
-        price: kid.price,
-        brand: kid.brand,
-        size: kid.size,
-        images: kid.arrayOfAllImages,
-        color: kid.color,
-        discount: kid.discount,
-        userID:userId
-      };
-    }
+    let product = await MenProductsModel.findOne({ _id: req.params.id }) ||
+                  await WomenProductsModel.findOne({ _id: req.params.id }) ||
+                  await KidProductsModel.findOne({ _id: req.params.id });
 
     // If no product was found, return an error
-    if (!productToAdd) {
+    if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // Create a new wishlist entry and save
-    let output = new WishlistProductsModel(productToAdd);
-    await output.save();
+    // Create the product object to be added to the wishlist
+    let productToAdd = {
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      brand: product.brand,
+      size: product.size,
+      images: product.arrayOfAllImages,
+      color: product.color,
+      discount: product.discount,
+      userID: userId
+    };
+
+    // Save the wishlist entry
+    let wishlistEntry = new WishlistProductsModel(productToAdd);
+    await wishlistEntry.save();
 
     // Send a success response
     res.status(200).json({ message: "Product added to wishlist" });
   } catch (error) {
-   
-    res.status(500).json({ error });
+    res.status(500).json({ message: "An error occurred", error });
   }
 });
 
