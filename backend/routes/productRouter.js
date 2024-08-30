@@ -193,7 +193,7 @@ ProductRouter.get('/kid',async(req,res)=>{
 //------------------GET ALL PRODUCTS-------------------
 
 ProductRouter.get('/all_Product', async (req, res) => {
-  let { q, name, category,forCategory,price,color, brand, limit = 20, page = 1 } = req.query;
+  let { q, name, category, forCategory, price, color, brand, limit = 20, page = 1 } = req.query;
 
   try {
     // Convert limit and page to integers for pagination
@@ -203,55 +203,50 @@ ProductRouter.get('/all_Product', async (req, res) => {
     // Initialize filter object
     let filter = {};
 
-    // Apply dynamic search for 'q' across the 'name' field
+    // Apply dynamic search for 'q' across multiple fields
     if (q) {
-   
-     filter.$or=[
-{name:new RegExp(q,'i')},
-{category:new RegExp(q,'i')},
-{forCategory:new RegExp(q,'i')},
-{brand:new RegExp(q,'i')},
+      filter.$or = [
+        { name: new RegExp(q, 'i') },
+        { category: new RegExp(q, 'i') },
+        { forCategory: new RegExp(q, 'i') },
+        { brand: new RegExp(q, 'i') }
+      ];
 
-
-
-     ]
-     const parsedNumber = parseFloat(q);
-     if (!isNaN(parsedNumber)) {
-       filter.$or.push({ price: parsedNumber });  // Exact match for numeric 'price'
-     }
-    } 
-      // Apply specific filters if individual parameters are provided
-      if (name) {
-        filter.name = new RegExp(name, 'i'); // Case-insensitive partial match for 'name'
+      // Check if 'q' can be a numeric price filter
+      const parsedNumber = parseFloat(q);
+      if (!isNaN(parsedNumber)) {
+        filter.$or.push({ price: parsedNumber });  // Exact match for numeric 'price'
       }
-      if (category) {
-        filter.category = category;
-      }
-      if(forCategory){
-        filter.forCategory = forCategory;
-      }
-      if (brand) {
-        filter.brand = brand;
-      }
-      if(color){
-        filter.color=color
-      
     }
 
-    // Fetch products from all collections with filters and pagination
-    let men = await MenProductsModel.find(filter).limit(limit).skip((page - 1) * limit);
-    let women = await WomenProductsModel.find(filter).limit(limit).skip((page - 1) * limit);
-    let kid = await KidProductsModel.find(filter).limit(limit).skip((page - 1) * limit);
+    // Apply specific filters if individual parameters are provided
+    if (name) filter.name = new RegExp(name, 'i');
+    if (category) filter.category = category;
+    if (forCategory) filter.forCategory = forCategory;
+    if (brand) filter.brand = brand;
+    if (color) filter.color = color;
+
+    // Fetch all products matching the filter from each collection
+    let men = await MenProductsModel.find(filter);
+    let women = await WomenProductsModel.find(filter);
+    let kid = await KidProductsModel.find(filter);
 
     // Combine products from all collections
     let allProducts = [...men, ...women, ...kid];
 
-    // Send the combined products with a success response
+    // Calculate total products before pagination
+    const totalProducts = allProducts.length;
+console.log(totalProducts)
+    // Apply pagination to the combined results
+    const startIndex = (page - 1) * limit;
+    const paginatedProducts = allProducts.slice(startIndex, startIndex + limit);
+
+    // Send the paginated products along with pagination info
     res.status(200).json({
-      products: allProducts,
-      totalProducts: allProducts.length,
+      products: paginatedProducts,
+      totalProducts: totalProducts,
       currentPage: page,
-      totalPages:Math.floor (allProducts.length / limit),
+      totalPages: Math.ceil(totalProducts / limit),
     });
 
   } catch (error) {
@@ -259,6 +254,7 @@ ProductRouter.get('/all_Product', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 
