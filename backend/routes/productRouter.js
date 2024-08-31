@@ -132,10 +132,11 @@ ProductRouter.post('/wishlist/:id', authMiddleware, async (req, res) => {
     let productToAdd = {
       name: product.name,
       category: product.category,
+      forCategory: product.forCategory, // Updated to include 'forCategory' if needed
       price: product.price,
       brand: product.brand,
       size: product.size,
-      images: product.arrayOfAllImages,
+      arrayOfAllImages: product.arrayOfAllImages[0], // Use 'arrayOfAllImages' directly as a string
       color: product.color,
       discount: product.discount,
       userID: userId
@@ -151,6 +152,7 @@ ProductRouter.post('/wishlist/:id', authMiddleware, async (req, res) => {
     res.status(500).json({ message: "An error occurred", error });
   }
 });
+
 
 ProductRouter.get('/wishlist',authMiddleware,async(req,res)=>{
   try {
