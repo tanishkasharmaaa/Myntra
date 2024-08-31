@@ -152,6 +152,25 @@ ProductRouter.post('/wishlist/:id', authMiddleware, async (req, res) => {
   }
 });
 
+ProductRouter.get('/wishlist',authMiddleware,async(req,res)=>{
+  try {
+    let wishlist=await WishlistProductsModel.find();
+    res.status(200).json({wishlist})
+  } catch (error) {
+    res.status(500).json({error})
+  }
+})
+
+ProductRouter.delete('/wishlist/:id',async(req,res)=>{
+  try {
+    let wishlist=await WishlistProductsModel.findByIdAndDelete({_id:req.params.id});
+    
+    res.status(200).json({message:"Move from wishlist Successfully"})
+  } catch (error) {
+    res.status(500).json({error})
+  }
+})
+
 ///---------------------------GET PRODUCT------------------------------
 
 ProductRouter.get('/men',async(req,res)=>{
