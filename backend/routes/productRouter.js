@@ -8,6 +8,7 @@ const WomenProductsModel = require("../models/womenProduct.model");
 const KidProductsModel = require("../models/kidProduct.model");
 const WishlistProductsModel = require("../models/wishlist.model");
 const authMiddleware = require("../middleware/authMiddlware");
+const CartProductsModel=require("../models/cart.model")
 
 ProductRouter.use(express.json());
 
@@ -175,16 +176,87 @@ ProductRouter.get('/wishlist',authMiddleware,async(req,res)=>{
   }
 })
 
-ProductRouter.delete('/wishlist/:id',async(req,res)=>{
+ProductRouter.delete('/wishlist/:id', async (req, res) => {
   try {
-    let wishlist=await WishlistProductsModel.findByIdAndDelete({_id:req.params.id});
-    
-    res.status(200).json({message:"Move from wishlist Successfully"})
-  } catch (error) {
-    res.status(500).json({error})
-  }
-})
+    // Find and delete the product from the wishlist
+    const wishlistProduct = await WishlistProductsModel.findByIdAndDelete(req.params.id);
 
+    // If the product was not found in the wishlist, return an error
+    if (!wishlistProduct) {
+      return res.status(404).json({ message: "Product not found in the wishlist" });
+    }
+
+    // Create the cart product data using the details from the deleted wishlist product
+    const cartProductData = {
+      name: wishlistProduct.name,
+      category: wishlistProduct.category,
+      forCategory: wishlistProduct.forCategory,
+      price: wishlistProduct.price,
+      brand: wishlistProduct.brand,
+      size: wishlistProduct.size,
+      arrayOfAllImages: wishlistProduct.arrayOfAllImages,
+      color: wishlistProduct.color,
+      discount: wishlistProduct.discount,
+      productID: wishlistProduct.productID,
+      userID: wishlistProduct.userID,
+      quantity: 1, // Set a default quantity for the cart
+      addedDate: Date.now() // Set the current date for when the product is added to the cart
+    };
+
+    // Add the product to the cart
+    const cartProduct = new CartProductsModel(cartProductData);
+    await cartProduct.save();
+
+    // Send a success response
+    res.status(200).json({ message: "Product moved from wishlist to cart successfully" });
+
+  } catch (error) {
+    // If an error occurs, send a 500 status and the error
+    res.status(500).json({ error });
+  }
+});
+
+
+ProductRouter.post('/add-to-cart/:id', authMiddleware, async (req, res) => {
+  try {
+    // Find the product by ID from the different collections
+    const product = await MenProductsModel.findById(req.params.id) ||
+                    await WomenProductsModel.findById(req.params.id) ||
+                    await KidProductsModel.findById(req.params.id);
+
+    // If no product was found, return an error
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Create the cart product data
+    const cartProductData = {
+      name: product.name,
+      category: product.category,
+      forCategory: product.forCategory,
+      price: product.price,
+      brand: product.brand,
+      size: product.size,
+      arrayOfAllImages: product.arrayOfAllImages[0], // Assuming the first image in the array is used
+      color: product.color,
+      discount: product.discount,
+      productID: product._id, // The original product ID
+      userID: req.userID, // The user ID from the token
+      quantity: 1, // Default quantity
+      addedDate: Date.now(), // Timestamp when added to the cart
+    };
+
+    // Add the product to the cart
+    const cartProduct = new CartProductsModel(cartProductData);
+    await cartProduct.save();
+
+    // Send a success response
+    res.status(200).json({ message: "Product added to cart successfully", cartProduct });
+
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error });
+  }
+});
 ///---------------------------GET PRODUCT------------------------------
 
 ProductRouter.get('/men',async(req,res)=>{
