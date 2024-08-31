@@ -6,7 +6,7 @@ forCategory:{type:String},
 price:{type:Number},
 brand:{type:String},
 size:{type:[String]},
-arrayOfAllImages:{type:[String]},
+arrayOfAllImages:{type:String},
 color:{type:String},
 discount:{type:String},
 userID:{type:mongoose.Schema.Types.ObjectId,ref:"user",required:true}
