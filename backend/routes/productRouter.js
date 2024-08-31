@@ -128,17 +128,28 @@ ProductRouter.post('/wishlist/:id', authMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
+    // Determine the correct 'forCategory' based on the found product's model
+    let forCategory = "";
+    if (product instanceof MenProductsModel) {
+      forCategory = "men";
+    } else if (product instanceof WomenProductsModel) {
+      forCategory = "women";
+    } else if (product instanceof KidProductsModel) {
+      forCategory = "kid";
+    }
+
     // Create the product object to be added to the wishlist
     let productToAdd = {
       name: product.name,
       category: product.category,
-      forCategory: product.forCategory, // Updated to include 'forCategory' if needed
+      forCategory: forCategory, // Set dynamically based on the product model
       price: product.price,
       brand: product.brand,
       size: product.size,
-      arrayOfAllImages: product.arrayOfAllImages[0], // Use 'arrayOfAllImages' directly as a string
+      arrayOfAllImages: product.arrayOfAllImages[0], // Assuming it's an array, we take the first image
       color: product.color,
       discount: product.discount,
+      productID: product._id, // Add the product's ID
       userID: userId
     };
 
@@ -152,6 +163,7 @@ ProductRouter.post('/wishlist/:id', authMiddleware, async (req, res) => {
     res.status(500).json({ message: "An error occurred", error });
   }
 });
+
 
 
 ProductRouter.get('/wishlist',authMiddleware,async(req,res)=>{
