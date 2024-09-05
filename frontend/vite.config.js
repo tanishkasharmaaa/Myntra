@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/', // Ensure base path is correct for deployment
   build: {
+    sourcemap: true,
     chunkSizeWarningLimit: 1000, // Increase chunk size warning limit if needed
     rollupOptions: {
       output: {
