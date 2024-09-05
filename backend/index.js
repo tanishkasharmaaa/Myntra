@@ -9,7 +9,11 @@ const UserRouter=require("./routes/userRouter");
 const ProductRouter = require("./routes/productRouter");
 
 
-app.use(cors());
+app.use(cors({
+    origin: '*', // Update this to the specific origin in production
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
+  }));
 
 app.use("/user",UserRouter)
 app.use("/product",ProductRouter)
