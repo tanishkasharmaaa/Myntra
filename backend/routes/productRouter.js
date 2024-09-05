@@ -313,9 +313,16 @@ ProductRouter.post("/add-to-cart/:id", authMiddleware, async (req, res) => {
 
 
 ProductRouter.get('/cart', authMiddleware, async (req, res) => {
+  let userId;
+  let token=req.headers.authorization.split(' ')[1];
+  jwt.verify(token,process.env.JWT_SECRET_KEY,function(err,decode){
+    if(decode){
+userId=decode.userID
+    }
+  })
   try {
     // Find all cart items for the logged-in user
-    const cartItems = await CartProductsModel.find({ userID: req.userID });
+    const cartItems = await CartProductsModel.find({ userID:userId });
 
     // If no items found, return an empty list
     if (!cartItems || cartItems.length === 0) {
