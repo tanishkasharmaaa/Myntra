@@ -151,7 +151,7 @@ function Women() {
         <Box>
           <SideBar color={setColor} product={data} brand={setBrand} />
         </Box>
-        <Box p={6} bg="white" flex="1">
+        <Box p={6} bg="white" flex="1"  overflowY={'auto'} height={{base:"700px",md:"700px"}} >
           
           <Box
             display="grid"
@@ -211,14 +211,24 @@ function Women() {
                         {ele.name}
                       </Text>
 
-                      <Text
-                        fontSize="lg"
-                        fontWeight="bold"
-                        color="grey.600"
-                        mt={2}
-                      >
-                        ${ele.price}
-                      </Text>
+                      <Box display={"flex"} gap={"4"}>
+                        <Text
+                          fontSize="lg"
+                          fontWeight="bold"
+                          color="grey.200"
+                          mt={2}
+                        >
+                          ₹{parseInt(ele.price)}
+                        </Text>
+                        <Text
+                          fontSize="lg"
+                          textDecoration={"line-through"}
+                          color="gray.400"
+                          mt={2}
+                        >
+                          ₹{Math.round(ele.price * 1.15)}
+                        </Text>
+                      </Box>
                     </Link>
 
                     <hr
@@ -234,7 +244,7 @@ function Women() {
                       mt={1}
                       _hover={{ bg: "pink.100" }}
                     >
-                      Add to Wishlist
+                      Wishlist
                     </Button>
                   </Box>
                 </Box>

@@ -44,34 +44,41 @@ function SideBar({ color, brand }) {
     <>
       {/* Remove Filters Button */}
       <Button
+      mt={'10px'}
         onClick={handleFilterRemove}
-        border={'solid'}
+       
         borderRadius={'none'}
         mb={6}
         bg="transparent"
         variant="solid"
-        width="100%"
+        width="70%"
         // bg={useColorModeValue("gray.600", "gray.200")}
         color='grey'
-        _hover={{ bg: useColorModeValue("gray.700", "gray.300") }}
+        _hover={{ bg: useColorModeValue("gray.300", "gray.300") }}
       
       >
         Remove Filters
       </Button>
 
       {/* Color Filter */}
-      <Text fontSize="xl" fontWeight="semibold" mb={4} textAlign="center" color={useColorModeValue("gray.800", "gray.200")}>
+      <Text fontSize="l" fontWeight="semibold" mb={3} textAlign={'center'}  color={useColorModeValue("gray.800", "gray.200")}>
         Filter by Color
       </Text>
       <Box
         height="40vh"
-        width={{ base: "full", md: "250px" }} // Responsive width
+        width={{ base: "200px", md: "200px" }} // Responsive width
         bg={useColorModeValue("white", "gray.700")}
         p={4}
-        boxShadow="lg"
         borderRadius="lg"
         overflowY="auto" // Enable vertical scrolling
         mb={8}
+        css={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          "-ms-overflow-style": "none", // For Internet Explorer and Edge
+          "scrollbar-width": "none", // For Firefox
+        }}
       >
         <RadioGroup onChange={handleColorChange} value={selectedColor}>
           <Stack spacing={4}>
@@ -80,7 +87,7 @@ function SideBar({ color, brand }) {
                 <Box
                   display="flex"
                   alignItems="center"
-                  p={3}
+                 
                   borderRadius="md"
                   bg={selectedColor === uniqueColor ? "gray.100" : "transparent"}
                   _hover={{ bg: useColorModeValue("gray.50", "gray.600") }}
@@ -107,17 +114,25 @@ function SideBar({ color, brand }) {
       </Box>
 
       {/* Brand Filter */}
-      <Text fontSize="xl" fontWeight="semibold" mb={4} textAlign="center" color={useColorModeValue("gray.800", "gray.200")}>
+      <Text fontSize="l" fontWeight="semibold" mb={3} textAlign={'center'}  color={useColorModeValue("gray.800", "gray.200")}>
         Filter by Brand
       </Text>
       <Box
-        height="40vh"
-        width={{ base: "full", md: "250px" }}
+      border={'solid 1px grey.500'}
+        height="50vh"
+        width={{ base: "200px", md: "200px" }} // Responsive width
         bg={useColorModeValue("white", "gray.700")}
         p={4}
-        boxShadow="lg"
         borderRadius="lg"
-        overflowY="auto"
+        overflowY="auto" // Enable vertical scrolling
+      
+        css={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          "-ms-overflow-style": "none", // For Internet Explorer and Edge
+          "scrollbar-width": "none", // For Firefox
+        }}
       >
         <RadioGroup onChange={handleBrandChange} value={selectedBrand}>
           <Stack spacing={4}>
@@ -126,7 +141,7 @@ function SideBar({ color, brand }) {
                 <Box
                   display="flex"
                   alignItems="center"
-                  p={3}
+                 
                   borderRadius="md"
                   bg={selectedBrand === uniqueBrand ? "gray.100" : "transparent"}
                   _hover={{ bg: useColorModeValue("gray.50", "gray.600") }}

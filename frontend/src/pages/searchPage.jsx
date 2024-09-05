@@ -152,21 +152,19 @@ function SearchPage() {
         <Box>
           <SideBar color={setColor} product={data} brand={setBrand} />
         </Box>
-        <Box p={6} bg="white" flex="1">
-          <Text
-            fontSize="4xl"
-            fontWeight="bold"
-            mb={8}
-            textAlign="center"
-            color="teal.700"
-          >
-            Search Results
-          </Text>
+        <Box p={6} bg="white" flex="1" overflowY={'auto'} height={{base:"700px",md:"700px"}} css={{
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "-ms-overflow-style": "none", // For Internet Explorer and Edge
+    "scrollbar-width": "none", // For Firefox
+  }}>
+         
           <Box
             display="grid"
             gridTemplateColumns={{
               lg: "repeat(4, 1fr)",
-              base: "repeat(2, 1fr)",
+              base: "repeat(1, 1fr)",
               sm: "repeat(3, 1fr)",
             }}
             rowGap={{ base: 3, lg: 6, md: 4 }}
@@ -220,14 +218,24 @@ function SearchPage() {
                         {ele.name}
                       </Text>
 
-                      <Text
-                        fontSize="lg"
-                        fontWeight="bold"
-                        color="grey.600"
-                        mt={2}
-                      >
-                        ${ele.price}
-                      </Text>
+                      <Box display={"flex"} gap={"4"}>
+                        <Text
+                          fontSize="lg"
+                          fontWeight="bold"
+                          color="grey.200"
+                          mt={2}
+                        >
+                          ₹{parseInt(ele.price)}
+                        </Text>
+                        <Text
+                          fontSize="lg"
+                          textDecoration={"line-through"}
+                          color="gray.400"
+                          mt={2}
+                        >
+                          ₹{Math.round(ele.price * 1.15)}
+                        </Text>
+                      </Box>
                     </Link>
 
                     <hr
@@ -243,7 +251,7 @@ function SearchPage() {
                       mt={1}
                       _hover={{ bg: "pink.100" }}
                     >
-                      Add to Wishlist
+                      Wishlist
                     </Button>
                   </Box>
                 </Box>

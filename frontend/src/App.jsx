@@ -12,6 +12,10 @@ import { Kids } from './pages/kids'
 import { SignUp } from './pages/signup'
 import { SinglePage } from './pages/singlePage'
 import { Wishlist } from './pages/wishlist'
+import { Cart } from './pages/cart'
+import { Address } from './pages/address'
+import { Payment } from './pages/payment'
+import { Confirmation } from './pages/confirmation'
 
 
 function App() {
@@ -29,7 +33,11 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/:id' element={<SinglePage/>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
-        
+        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/address' element={<Address/>}/>
+        <Route path='/payment' element={<Payment/>}/>
+        <Route path='/confirmation' element={<Confirmation/>}/>
+
       </Routes>
     </>
   )

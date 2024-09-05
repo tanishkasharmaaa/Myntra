@@ -92,6 +92,74 @@ function SinglePage() {
     }
   }
 
+
+  async function handleCart(ele) {
+    if (!token) {
+      toast({
+        title: "Please log in or sign up.",
+        description: "You need to be logged in to add products to your cart.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      return;
+    }
+
+    try {
+      let res = await fetch(`https://myntra-gs75.onrender.com/product/add-to-cart/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: ele.name,
+          category: ele.category,
+          images: ele.arrayOfAllImages,
+          size: ele.sizes,
+          brand: ele.brand,
+          price: ele.price,
+          color: ele.color,
+          discount: ele.discount
+        })
+      });
+
+      if (!res.ok) {
+        toast({
+          title: "Error adding to wishlist",
+          description: "There was an issue adding the product to your cart.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+        return;
+      }
+
+      let data = await res.json();
+      toast({
+        title: "Added to Cart",
+        description: `The product ${ele.name} was added to your Cart.`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+    } catch (error) {
+      toast({
+        title: "An error occurred",
+        description: "An error occurred while adding the product to the wishlist.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      console.error('Error while adding to cart:', error);
+    }
+  }
+
+
   useEffect(() => {
     fetchProduct();
   }, [id]);
@@ -123,7 +191,7 @@ function SinglePage() {
 
               {/* Action Buttons */}
               <Box mb={4}>
-                <Button colorScheme="pink" mr={4} size="lg">Add to bag</Button>
+                <Button colorScheme="pink" mr={4} size="lg" onClick={()=>handleCart(product)}>Add to bag</Button>
                 <Button
                   onClick={() => handleWishlist(product)}
                   variant="outline"

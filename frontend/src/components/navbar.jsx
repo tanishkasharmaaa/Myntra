@@ -35,6 +35,21 @@ function Navbar() {
       navigate('/');
     }
   };
+
+  const handleCart = () => {
+    if (token) {
+      navigate('/cart');
+    } else {
+      toast({
+        title: 'Login Required',
+        description: 'Please login/signup to access this page.',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate('/');
+    }
+  };
   return (
     <Flex
     width={'100%'}
@@ -173,9 +188,9 @@ function Navbar() {
             </Box>
 
             {/* Additional Menu Items */}
-            <MenuItem as={Link} to="/account-settings">
+            {/* <MenuItem as={Link} to="/account-settings">
               Account Settings
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem as={Link} to="/order-history">
               Order History
             </MenuItem>
@@ -209,6 +224,7 @@ function Navbar() {
       aria-label="Wishlist"
     >
       <Icon
+      
         as={CiHeart}
         boxSize={{ base: "24px", md: "28px" }}
         cursor="pointer"
@@ -217,8 +233,13 @@ function Navbar() {
     </Button>
 
         
-
-        <Icon as={BsBag} boxSize={{ base: "24px", md: "28px" }} cursor="pointer" transition="color 0.3s ease" />
+<Button onClick={handleCart}
+      bg="transparent"
+      _hover={{ bg: 'gray.100' }} 
+      p={0} 
+      aria-label="Cart" >
+  <Icon as={BsBag} boxSize={{ base: "24px", md: "28px" }} cursor="pointer" transition="color 0.3s ease" /></Button>
+        
       </Flex>
     </Flex>
   );

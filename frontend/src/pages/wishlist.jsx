@@ -28,6 +28,27 @@ function Wishlist() {
         }
     }
 
+
+   async function moveToCart(ele){
+       try {
+        let res=await fetch(`https://myntra-gs75.onrender.com/product/wishlist/${ele._id}`,{
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json",
+                Authorization:`Bearer ${token}`
+            }
+        })
+        let data=await res.json();
+        if(res.ok){
+        alert('Moved to cart')
+        fetchData()
+        }
+       } catch (error) {
+        console.log(error)
+       }
+
+    }
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -95,7 +116,7 @@ function Wishlist() {
                                     size="md"
                                     fontWeight="bold"
                                     _hover={{ bg: "teal.500", transform: "scale(1.05)" }}
-                                    onClick={() => alert('Move to Cart functionality here')}
+                                    onClick={() => moveToCart(ele)}
                                 >
                                     Move to Cart
                                 </Button>

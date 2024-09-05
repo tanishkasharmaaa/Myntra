@@ -9,7 +9,8 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         <Button
           onClick={() => onPageChange(currentPage - 1)}
           isDisabled={currentPage === 1}
-          colorScheme="pink"
+          border={'2px solid pink'}
+          bg={'none'}
         >
           Previous
         </Button>
@@ -17,7 +18,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           <Button
             key={index}
             onClick={() => onPageChange(index + 1)}
-            colorScheme={currentPage === index + 1 ? "orange" : "gray"}
+            bg={currentPage === index + 1 ? "none" : "black.200"}
           >
             {index + 1}
           </Button>
@@ -25,7 +26,8 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         <Button
           onClick={() => onPageChange(currentPage + 1)}
           isDisabled={currentPage === totalPages}
-          colorScheme="pink"
+          border={'2px solid pink'}
+          bg={'none'}
         >
           Next
         </Button>
