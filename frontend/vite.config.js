@@ -1,33 +1,26 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Ensure base path is correct for deployment
+  base: '/',  // Adjust the base URL if needed for deployment
   build: {
-    sourcemap: true,
-    chunkSizeWarningLimit: 1000, // Increase chunk size warning limit if needed
+    sourcemap: true,  // Generate sourcemaps for easier debugging
+    chunkSizeWarningLimit: 1000,  // Increase chunk size warning limit
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Bundle libraries from node_modules into separate chunks
           if (id.includes('node_modules')) {
             if (id.includes('react')) {
-              return 'vendor-react'; // Separate React into its own chunk
+              return 'vendor-react';  // Chunk for React
             }
             if (id.includes('lodash')) {
-              return 'vendor-lodash'; // Separate Lodash into its own chunk
+              return 'vendor-lodash';  // Chunk for Lodash
             }
-            // Add more specific cases if necessary
-            if (id.includes('some-large-library')) {
-              return 'vendor-large-lib'; // Example for large libraries
-            }
-            // Default for other node_modules
-            return 'vendor-other'; 
+            return 'vendor-other';  // Default chunk for other libraries
           }
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });
