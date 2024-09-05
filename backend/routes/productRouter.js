@@ -338,6 +338,32 @@ userId=decode.userID
 
 
 
+ProductRouter.delete('/cart/:id', authMiddleware, async (req, res) => {
+  let userId;
+  let token=req.headers.authorization.split(' ')[1];
+  jwt.verify(token,process.env.JWT_SECRET_KEY,function(err,decode){
+    if(decode){
+userId=decode.userID
+    }
+  })
+  try {
+    // Find all cart items for the logged-in user
+    const cartItems = await CartProductsModel.findByIdAndDelete({_id:req.params.id});
+
+    // If no items found, return an empty list
+    if (!cartItems || cartItems.length === 0) {
+      return res.status(200).json({ message: "No items in the cart", cartItems: [] });
+    }
+
+    // Send the list of cart items
+    res.status(200).json({ cartItems });
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error });
+  }
+});
+
+
+
 ///---------------------------GET PRODUCT------------------------------
 
 ProductRouter.get("/men", async (req, res) => {
