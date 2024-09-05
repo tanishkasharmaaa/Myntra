@@ -9,7 +9,7 @@ const UserRouter=require("./routes/userRouter");
 const ProductRouter = require("./routes/productRouter");
 
 
-app.use(cors("*"));
+app.use(cors());
 
 app.use("/user",UserRouter)
 app.use("/product",ProductRouter)
