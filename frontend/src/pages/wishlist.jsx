@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import { Box, Image, Text, Button, useBreakpointValue, Grid, GridItem } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 function Wishlist() {
     let token = localStorage.getItem("token");
     let [data, setData] = useState([]);
+    let navigate=useNavigate()
 
     async function fetchData() {
         if (!token) {
@@ -59,8 +61,9 @@ function Wishlist() {
     const gridColumns = useBreakpointValue({ base: 1, sm: 2, md: 3, lg: 4 });
 
     return (
-        <>
-            <Navbar />
+        <>{
+            data.length==0?(<Box display={'flex'} justifyContent={'center'} ><Box display={'flex'} flexDirection={'column'}><Image  src="/images/cart/cart.png"/><Button bg={'salmon'} color={'white'} onClick={()=>navigate('/')}>GO TO PRODUCTS AND SOMETHING TO WISHLIST</Button></Box> </Box>):(<>
+             <Navbar />
             <Box p={4} m={4}>
                 <Grid templateColumns={`repeat(${gridColumns}, 1fr)`} gap={6}>
                     {data.map((ele) => (
@@ -125,6 +128,9 @@ function Wishlist() {
                     ))}
                 </Grid>
             </Box>
+            </>)
+        }
+           
         </>
     );
 }
