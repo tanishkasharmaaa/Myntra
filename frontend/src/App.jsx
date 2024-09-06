@@ -13,7 +13,7 @@ import { SignUp } from './pages/signup'
 import { SinglePage } from './pages/singlePage'
 import { Wishlist } from './pages/wishlist'
 import { Cart } from './pages/cart'
-import { Address } from './pages/address'
+import {Address} from './pages/address'
 import { Payment } from './pages/payment'
 import { Confirmation } from './pages/confirmation'
 
