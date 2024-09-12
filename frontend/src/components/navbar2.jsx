@@ -5,9 +5,9 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 
 const steps = [
-  { title: 'Cart', description: 'Contact Info', path: '/cart' },
-  { title: 'Address', description: 'Date & Time', path: '/address' },
-  { title: 'Payment', description: 'Select Rooms', path: '/payment' },
+  { title: 'Cart', description: 'Contact Info', path: '' },
+  { title: 'Address', description: 'Date & Time', path: '' },
+  { title: 'Payment', description: 'Select Rooms', path: '' },
 ]
 
 function Navbar2() {
