@@ -45,3 +45,4 @@ Created by [Tanishka](https://github.com/tanishkasharmaaa/Myntra) - feel free to
 ![Alt](./gitHubImages/6.png)
 ![Alt](./gitHubImages/7.png)
 ![Alt](./gitHubImages/8.png)
+![Alt](./gitHubImages/9.png)
