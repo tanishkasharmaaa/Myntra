@@ -1,4 +1,4 @@
-# [Myntra Clone](https://myntra-f8tp.vercel.app/)
+# 🛍️ [Myntra Clone](https://myntra-f8tp.vercel.app/)
 
 ## Website Description
 Myntra Clone is a replica of the popular Indian online fashion and lifestyle e-commerce platform, Myntra. This clone simulates the core functionalities of the original site, providing users with a seamless online shopping experience. The website offers a wide range of products, including clothing, footwear, accessories, and more, categorized into men’s and women’s sections.
@@ -32,6 +32,11 @@ Myntra Clone is a replica of the popular Indian online fashion and lifestyle e-c
 - **Search and Filters**: Filter products by brand, size, color, and price range, with an intuitive search functionality.
 - **Shopping Cart**: Add products to the cart and manage the cart before checkout.
 - **Responsive Design**: Mobile-friendly and optimized for various screen sizes.
+
+## Project Tech Stack 
+Frontend :- React,Javascript,ChakraUI
+Backend :- NodeJS, Express, CORS
+Authentication :- Bcrypt , JWT
 
 # [Project Live Link](https://myntra-f8tp.vercel.app/)
 
