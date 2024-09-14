@@ -1,7 +1,7 @@
 # Myntra Clone 
 
 <p>
-  <img src="./frontend/public/images/home/myntra.png" alt="Myntra Clone Image" style="width:200px; float:left; margin-right:20px;" />
+  <img src="/frontend/public/images/home/myntra.png" alt="Myntra Clone Image" style="width:200px; float:left; margin-right:20px;" />
 
 </p>
 
