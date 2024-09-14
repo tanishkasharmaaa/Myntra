@@ -1,11 +1,5 @@
 # Myntra Clone 
 
-<p>
-  <img src="/frontend/public/images/home/myntra.png" alt="Myntra Clone Image" style="width:200px; float:left; margin-right:20px;" />
-
-</p>
-
-
 ## Website Description
 Myntra Clone is a replica of the popular Indian online fashion and lifestyle e-commerce platform, Myntra. This clone simulates the core functionalities of the original site, providing users with a seamless online shopping experience. The website offers a wide range of products, including clothing, footwear, accessories, and more, categorized into men’s and women’s sections.
 
@@ -40,4 +34,14 @@ Myntra Clone is a replica of the popular Indian online fashion and lifestyle e-c
 - **Responsive Design**: Mobile-friendly and optimized for various screen sizes.
 
 ## Contact
-Created by [Tanishka](https://github.com/tanishkasharmaaa/Myntra) - feel free to reach out!
+Created by [Tanishka](https://github.com/tanishkasharmaaa/Myntra) - feel free to reach out on [linkedIn](https://www.linkedin.com/in/tanishka-sharma-304953274/)!
+
+## Product Images
+![Alt](./gitHubImages/1.png)
+![Alt](./gitHubImages/2.png)
+![Alt](./gitHubImages/3.png)
+![Alt](./gitHubImages/4.png)
+![Alt](./gitHubImages/5.png)
+![Alt](./gitHubImages/6.png)
+![Alt](./gitHubImages/7.png)
+![Alt](./gitHubImages/8.png)
