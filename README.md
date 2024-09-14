@@ -1,4 +1,4 @@
-# Myntra Clone <img width="100px"  src="./frontend/public/images/home/myntra.png"/>
+# Myntra Clone <img src="./frontend/public/images/home/myntra.png"/>
 
 ## Website Description
 Myntra Clone is a replica of the popular Indian online fashion and lifestyle e-commerce platform, Myntra. This clone simulates the core functionalities of the original site, providing users with a seamless online shopping experience. The website offers a wide range of products including clothing, footwear, accessories, and more, categorized into men’s and women’s sections.
