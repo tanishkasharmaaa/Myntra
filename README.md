@@ -34,9 +34,9 @@ Myntra Clone is a replica of the popular Indian online fashion and lifestyle e-c
 - **Responsive Design**: Mobile-friendly and optimized for various screen sizes.
 
 ## Project Tech Stack 
-Frontend :- React,Javascript,ChakraUI
-Backend :- NodeJS, Express, CORS
-Authentication :- Bcrypt , JWT
+- **Frontend** :- React,Javascript,ChakraUI
+- **Backend** :- NodeJS, Express, CORS,MongoDB,Mongoose
+- **Authentication** :- Bcrypt , JWT
 
 # [Project Live Link](https://myntra-f8tp.vercel.app/)
 
