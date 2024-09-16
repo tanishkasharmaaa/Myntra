@@ -9,6 +9,7 @@ import { useRef } from "react";
 import {Footer} from '../components/footer'
 import { FiTag } from "react-icons/fi";
 import { color } from "@chakra-ui/react";
+import Navbar from "../components/navbar";
 
 
 function Cart() {
@@ -98,10 +99,12 @@ useEffect(()=>{
     handleCart()
 },[])
   return (
-    <>{
+    <>
+   
+    {
         cart.length==0?(<Box display={'flex'} justifyContent={'center'} ><Box display={'flex'} flexDirection={'column'}><Image  src="/images/cart/cart.png"/><Button bg={'salmon'} color={'white'} onClick={()=>navigate('/wishlist')}>GO TO WISHLIST TO ADD PRODUCTS</Button></Box> </Box>):(
             <>
-           <Navbar2 /><Box border="1px solid gray" display="flex" flexDirection={'row'} p={4} maxWidth="1200px" margin="0 auto" gap={6}>
+           <Navbar/><Box border="1px solid gray" display="flex" flexDirection={'row'} p={4} maxWidth="1200px" margin="0 auto" gap={6}>
       <Box >
         {/* Left Side - Offers */}
         <Box flex="1" flexDirection={'row'} border="1px solid" borderColor={'gray.600'} borderRadius="md" p={4}>
