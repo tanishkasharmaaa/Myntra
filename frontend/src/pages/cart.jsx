@@ -10,9 +10,11 @@ import {Footer} from '../components/footer'
 import { FiTag } from "react-icons/fi";
 import { color } from "@chakra-ui/react";
 
+
 function Cart() {
 let token=localStorage.getItem("token")
 let[cart,setCart]=useState([]);
+let [dialogProductId,setDialogProductId]=useState("")
 const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
 const navigate=useNavigate()
@@ -45,6 +47,7 @@ async function handleCart(){
 
 
 async function handleRemoveProduct(ele){
+  console.log(ele)
   try {
     let res=await fetch(`https://myntra-gs75.onrender.com/product/cart/${ele._id}`,{
         method:"DELETE",
@@ -124,36 +127,35 @@ useEffect(()=>{
 {
   cart.map((ele) => (
     <Box key={ele._id} position="relative" display="flex" p={4} gap={6} alignItems="center" borderBottom="1px solid gray">
-      {ele.arrayOfAllImages?.length > 0 && (
-        <Box display="flex" gap={4} width="100%">
-          {/* Close Button */}
-          <CloseButton  onClick={onOpen} position="absolute" top="8px" right="8px" />
-          <AlertDialog
-        motionPreset='slideInBottom'
+  {ele.arrayOfAllImages?.length > 0 && (
+    <Box display="flex" gap={4} width="100%">
+      {/* Close Button */}
+      <AlertDialog
+        motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
         onClose={onClose}
-        isOpen={isOpen}
+        isOpen={isOpen && ele._id === dialogProductId}  // Check if the dialog is for the current product
         isCentered
       >
         <AlertDialogOverlay />
-
         <AlertDialogContent>
           <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            Do you want to remove {ele.name} from the cart ?
+            Do you want to remove {ele.name} from the cart?
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={()=>handleRemoveProduct(ele)} >
+            <Button ref={cancelRef} onClick={() => handleRemoveProduct(ele)}>
               Remove
             </Button>
-            <Button colorScheme='red' ref={cancelRef} onClick={()=>handleMoveToWishList(ele)} ml={3}>
-             Move to Wishlist
+            <Button colorScheme="red" onClick={() => handleMoveToWishList(ele)} ml={3}>
+              Move to Wishlist
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-          <Image src={ele.arrayOfAllImages} width="150px" objectFit="cover" />
+      <CloseButton onClick={() => { onOpen(); setDialogProductId(ele._id); }} position="absolute" top="8px" right="8px" />
+      <Image src={ele.arrayOfAllImages} width="150px" objectFit="cover" />
           <Box flex="1">
             <Text fontWeight="600" fontSize="lg">{ele.brand}</Text>
             <Text color="gray.500" fontSize="md">{ele.name}</Text>
@@ -179,9 +181,10 @@ useEffect(()=>{
               <Text ml={2}>14 days return available</Text>
             </Box>
           </Box>
-        </Box>
-      )}
     </Box>
+  )}
+</Box>
+
   ))
 }
 

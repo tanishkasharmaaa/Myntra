@@ -85,9 +85,10 @@ function Women() {
       navigate("/signup");
       return;
     }
-
+ console.log(ele)
     try {
-      console.log(ele.arrayOfAllImages[0])
+      
+     
       const res = await fetch(
         `https://myntra-gs75.onrender.com/product/wishlist/${ele._id}`,
         {
