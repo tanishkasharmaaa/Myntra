@@ -192,7 +192,6 @@ function Navbar() {
       bg="none"
       colorScheme="black"
       _hover={{ color: "pink.500" }}
-      fontWeight="medium"
       fontSize={{ base: "sm", md: "md" }}
     >
       {ele.title}
