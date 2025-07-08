@@ -10,9 +10,7 @@ const ProductRouter = require("./routes/productRouter");
 
 
 app.use(cors({
-    origin: 'https://myntra-f8tp.vercel.app', // Update this to the specific origin in production
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
+    origin: 'http://localhost:5173', // Update this to the specific origin in production
   }));
 
 app.use("/user",UserRouter)
