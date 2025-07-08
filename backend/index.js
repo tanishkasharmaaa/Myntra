@@ -10,7 +10,7 @@ const ProductRouter = require("./routes/productRouter");
 
 
 app.use(cors({
-    origin: 'https://myntra-f8tp.vercel.app/', // Update this to the specific origin in production
+    origin: 'https://myntra-f8tp.vercel.app', // Update this to the specific origin in production
   }));
 
 app.use("/user",UserRouter)
