@@ -3,6 +3,8 @@ import { CiUser, CiHeart } from "react-icons/ci";
 import { BsBag } from "react-icons/bs";
 import { Input, Box, Flex, Icon, useBreakpointValue, Image, Tooltip, MenuButton, Menu, MenuList, MenuItem, Button, IconButton, Text } from "@chakra-ui/react";
 import { Search } from "./search";
+import { Portal } from "@chakra-ui/react";
+import { useState } from "react";
 
 import { useToast } from "@chakra-ui/react";
 
@@ -15,7 +17,7 @@ function Navbar() {
     { title: "HOME & LIVING", link: "/", info: (<Box width={'100%'}><Image borderRadius="md" boxShadow="md" width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }} height="auto" objectFit="cover" src="/images/navbar/Home&Living.png" /></Box>) },
   ];
   const toast = useToast();
-  
+  const [isOpen, setIsOpen] = useState(false);
   const token = localStorage.getItem("token");
   const displaySearch = useBreakpointValue({ base: "none", md: "flex" });
   const displayIcons = useBreakpointValue({ base: "none", md: "flex" });
@@ -92,50 +94,21 @@ function Navbar() {
         wrap="wrap"
       >
         {nav.map((ele, index) => (
-          <Tooltip
-            key={index}
-            label={
-              <Box
-                width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }}
-                height="100%"
-              >
-                {ele.info}
-              </Box>
-            }
-            bg="transparent"
-          >
-            <Link to={ele.link}>
-              <Box
-                pt={{ base: "1", sm: "0", md: "2", lg: "2" }}
-                fontWeight="700"
-                fontSize={{ base: "13px", sm: "13px", md: "15px", lg: "16px" }}
-                position="relative"
-                _hover={{ color: "#fc03c2" }}
-                color="gray.700"
-                cursor="pointer"
-                textAlign="center"
-                transition="color 0.3s ease"
-                _after={{
-                  content: '""',
-                  position: "absolute",
-                  width: "0%",
-                  height: "2px",
-                  bottom: "-2px",
-                  left: "0",
-                  backgroundColor: "#fc03c2",
-                  transition: "width 0.3s ease-in-out"
-                }}
-                hover={{
-                  color: "#fc03c2",
-                  _after: {
-                    width: "100%"
-                  }
-                }}
-              >
-                {ele.title}
-              </Box>
-            </Link>
-          </Tooltip>
+          <Menu key={index} isOpen={isOpen} onClose={() => setIsOpen(false)} isLazy>
+           <MenuButton>{ele.title}</MenuButton>
+          <Portal>
+            <MenuList
+              id="menu-list"
+              onMouseEnter={() => setIsOpen(true)}
+              onMouseLeave={() => setIsOpen(false)}
+            >
+             <Box>
+
+             </Box>
+             
+            </MenuList>
+          </Portal>
+        </Menu>
        ) )}
       </Flex>
 
