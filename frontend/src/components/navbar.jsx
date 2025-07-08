@@ -1,7 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import { CiUser, CiHeart } from "react-icons/ci";
 import { BsBag } from "react-icons/bs";
-import { Input, Box, Flex, Icon, useBreakpointValue, Image, Tooltip, MenuButton, Menu, MenuList, MenuItem, Button, IconButton, Text } from "@chakra-ui/react";
+import {
+  Input,
+  Box,
+  Flex,
+  Icon,
+  useBreakpointValue,
+  Image,
+  Tooltip,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  Button,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
 import { Search } from "./search";
 import { Portal } from "@chakra-ui/react";
 import { useState } from "react";
@@ -10,11 +25,86 @@ import { useToast } from "@chakra-ui/react";
 
 function Navbar() {
   const nav = [
-    { title: "MEN", link: "/men", info: (<Box><Image borderRadius="md" boxShadow="md" width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }} height="auto" objectFit="cover" src="/images/navbar/men.png" /></Box>) },
-    { title: "WOMEN", link: "/women", info: (<Box><Image borderRadius="md" boxShadow="md" width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }} height="auto" objectFit="cover" src="/images/navbar/women.png" /></Box>) },
-    { title: "KIDS", link: "/kids", info: (<Box><Image borderRadius="md" boxShadow="md" width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }} height="auto" objectFit="cover" src="/images/navbar/kids.png" /></Box>) },
-    { title: "BEAUTY", link: "/", info: (<Box><Image borderRadius="md" boxShadow="md" width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }} height="auto" objectFit="cover" src="/images/navbar/beauty.png" /></Box>) },
-    { title: "HOME & LIVING", link: "/", info: (<Box width={'100%'}><Image borderRadius="md" boxShadow="md" width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }} height="auto" objectFit="cover" src="/images/navbar/Home&Living.png" /></Box>) },
+    {
+      title: "MEN",
+      link: "/men",
+      info: (
+        <Box>
+          <Image
+            borderRadius="md"
+            boxShadow="md"
+            width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }}
+            height="auto"
+            objectFit="cover"
+            src="/images/navbar/men.png"
+          />
+        </Box>
+      ),
+    },
+    {
+      title: "WOMEN",
+      link: "/women",
+      info: (
+        <Box>
+          <Image
+            borderRadius="md"
+            boxShadow="md"
+            width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }}
+            height="auto"
+            objectFit="cover"
+            src="/images/navbar/women.png"
+          />
+        </Box>
+      ),
+    },
+    {
+      title: "KIDS",
+      link: "/kids",
+      info: (
+        <Box>
+          <Image
+            borderRadius="md"
+            boxShadow="md"
+            width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }}
+            height="auto"
+            objectFit="cover"
+            src="/images/navbar/kids.png"
+          />
+        </Box>
+      ),
+    },
+    {
+      title: "BEAUTY",
+      link: "/",
+      info: (
+        <Box>
+          <Image
+            borderRadius="md"
+            boxShadow="md"
+            width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }}
+            height="auto"
+            objectFit="cover"
+            src="/images/navbar/beauty.png"
+          />
+        </Box>
+      ),
+    },
+    {
+      title: "HOME & LIVING",
+      link: "/",
+      info: (
+        <Box width={"100%"}>
+          <Image
+            borderRadius="md"
+            boxShadow="md"
+            width={{ base: "300px", sm: "500px", md: "800px", lg: "1000px" }}
+            height="auto"
+            objectFit="cover"
+            src="/images/navbar/Home&Living.png"
+          />
+        </Box>
+      ),
+    },
   ];
   const toast = useToast();
   const [isOpen, setIsOpen] = useState(false);
@@ -25,36 +115,36 @@ function Navbar() {
 
   const handleClick = () => {
     if (token) {
-      navigate('/wishlist');
+      navigate("/wishlist");
     } else {
       toast({
-        title: 'Login Required',
-        description: 'Please login/signup to access this page.',
-        status: 'warning',
+        title: "Login Required",
+        description: "Please login/signup to access this page.",
+        status: "warning",
         duration: 5000,
         isClosable: true,
       });
-      navigate('/');
+      navigate("/");
     }
   };
 
   const handleCart = () => {
     if (token) {
-      navigate('/cart');
+      navigate("/cart");
     } else {
       toast({
-        title: 'Login Required',
-        description: 'Please login/signup to access this page.',
-        status: 'warning',
+        title: "Login Required",
+        description: "Please login/signup to access this page.",
+        status: "warning",
         duration: 5000,
         isClosable: true,
       });
-      navigate('/');
+      navigate("/");
     }
   };
   return (
     <Flex
-    width={'100%'}
+      width={"100%"}
       as="nav"
       align="center"
       justifyContent="space-between"
@@ -94,22 +184,20 @@ function Navbar() {
         wrap="wrap"
       >
         {nav.map((ele, index) => (
-          <Menu key={index} isOpen={isOpen} onClose={() => setIsOpen(false)} isLazy>
-           <MenuButton>{ele.title}</MenuButton>
-          <Portal>
-            <MenuList
-              id="menu-list"
-              onMouseEnter={() => setIsOpen(true)}
-              onMouseLeave={() => setIsOpen(false)}
-            >
-             <Box>
-
-             </Box>
-             
-            </MenuList>
-          </Portal>
-        </Menu>
-       ) )}
+    <Button
+      key={index}
+      as={Link}
+      to={ele.link}
+      variant="ghost"
+      bg="none"
+      colorScheme="black"
+      _hover={{ color: "pink.500" }}
+      fontWeight="medium"
+      fontSize={{ base: "sm", md: "md" }}
+    >
+      {ele.title}
+    </Button>
+  ))}
       </Flex>
 
       {/* Search Bar */}
@@ -124,8 +212,19 @@ function Navbar() {
         flexShrink={0}
       >
         <Menu>
-          <MenuButton as={IconButton} icon={<CiUser />} fontSize={{ base: "24px", md: "28px" }} cursor="pointer" backgroundColor={'transparent'}/>
-          <MenuList p={4} backgroundColor={'white'} borderRadius="md" shadow="md">
+          <MenuButton
+            as={IconButton}
+            icon={<CiUser />}
+            fontSize={{ base: "24px", md: "28px" }}
+            cursor="pointer"
+            backgroundColor={"transparent"}
+          />
+          <MenuList
+            p={4}
+            backgroundColor={"white"}
+            borderRadius="md"
+            shadow="md"
+          >
             <Box textAlign="center" p={3}>
               {token ? (
                 <>
@@ -145,19 +244,17 @@ function Navbar() {
                     Please log in to continue.
                   </Text>
                   <Button
-                colorScheme="white"
-                backgroundColor={'#fc609c'}
-               
-                size="sm"
-                borderRadius={"none"}
-                _hover={{ bg: "#fc609c", color: "#fff" }}
-                onClick={() => navigate("/signup")}
-              >
-                LOGIN/SIGNUP
-              </Button>
+                    colorScheme="white"
+                    backgroundColor={"#fc609c"}
+                    size="sm"
+                    borderRadius={"none"}
+                    _hover={{ bg: "#fc609c", color: "#fff" }}
+                    onClick={() => navigate("/signup")}
+                  >
+                    LOGIN/SIGNUP
+                  </Button>
                 </>
               )}
-              
             </Box>
 
             {/* Additional Menu Items */}
@@ -170,49 +267,52 @@ function Navbar() {
             <MenuItem as={Link} to="/wishlist">
               Wishlist
             </MenuItem>
-            <MenuItem onClick={() => {
-                  localStorage.removeItem("token");
-                  navigate("/");
-                }}
-                bgColor={'#fc609c'}
-                variant="outline"
-                display={'flex'}
-                justifyContent={'center'}
-                _hover={{ bgColor: "#fc609c", color: "#fff" }}
-                size="sm"
-                width="100%">
-              <Text
-                 color="White"
-              >
-                Log Out
-              </Text>
+            <MenuItem
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/");
+              }}
+              bgColor={"#fc609c"}
+              variant="outline"
+              display={"flex"}
+              justifyContent={"center"}
+              _hover={{ bgColor: "#fc609c", color: "#fff" }}
+              size="sm"
+              width="100%"
+            >
+              <Text color="White">Log Out</Text>
             </MenuItem>
           </MenuList>
         </Menu>
         <Button
-      onClick={handleClick}
-      bg="transparent"
-      _hover={{ bg: 'gray.100' }} // Optional: Add hover effect if needed
-      p={0} // Removes default padding
-      aria-label="Wishlist"
-    >
-      <Icon
-      
-        as={CiHeart}
-        boxSize={{ base: "24px", md: "28px" }}
-        cursor="pointer"
-        transition="color 0.3s ease"
-      />
-    </Button>
+          onClick={handleClick}
+          bg="transparent"
+          _hover={{ bg: "gray.100" }} // Optional: Add hover effect if needed
+          p={0} // Removes default padding
+          aria-label="Wishlist"
+        >
+          <Icon
+            as={CiHeart}
+            boxSize={{ base: "24px", md: "28px" }}
+            cursor="pointer"
+            transition="color 0.3s ease"
+          />
+        </Button>
 
-        
-<Button onClick={handleCart}
-      bg="transparent"
-      _hover={{ bg: 'gray.100' }} 
-      p={0} 
-      aria-label="Cart" >
-  <Icon as={BsBag} boxSize={{ base: "24px", md: "28px" }} cursor="pointer" transition="color 0.3s ease" /></Button>
-        
+        <Button
+          onClick={handleCart}
+          bg="transparent"
+          _hover={{ bg: "gray.100" }}
+          p={0}
+          aria-label="Cart"
+        >
+          <Icon
+            as={BsBag}
+            boxSize={{ base: "24px", md: "28px" }}
+            cursor="pointer"
+            transition="color 0.3s ease"
+          />
+        </Button>
       </Flex>
     </Flex>
   );

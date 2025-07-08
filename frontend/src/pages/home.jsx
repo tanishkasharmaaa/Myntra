@@ -60,7 +60,7 @@ function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
       {/* Main Slider */}
       <Box
         w="100%"
